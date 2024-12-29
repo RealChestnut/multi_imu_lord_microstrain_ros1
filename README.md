@@ -1,5 +1,5 @@
 
-CHange microstrain_inertial_driver/microstrain_launcher.launch CODE
+add microstrain_inertial_driver/microstrain_launcher.launch CODE described below
 
 ```
 <arg name="node_instance" default="1" doc="Instance number to differentiate multiple nodes" />
