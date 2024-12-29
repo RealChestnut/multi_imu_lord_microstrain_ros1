@@ -1,0 +1,58 @@
+<launch>
+
+
+
+<include file="$(find setting_tf2)/launch/tf2_setting.launch">
+</include>
+
+<!-- t265 -->
+<include file="$(find realsense2_camera)/launch/rs_t265.launch">
+</include>
+
+  <!-- 1st node -->
+  <group ns="sensor1">
+    <include file="$(find microstrain_inertial_driver)/launch/microstrain.launch">
+      <arg name="node_instance" value="1" />
+      <arg name="port" value="/dev/ttyIMU1" />
+      <arg name="aux_port" value="/dev/ttyIMU1" />
+      <arg name="baudrate" value="115200" />
+      <arg name="imu_frame_id" value="sensor1" />
+      <arg name="imu_data_rate" value="150" />
+      <arg name="filter_data_rate" value="0" />
+    </include>
+  </group>
+
+  <!-- 2nd node -->
+  <group ns="sensor2">
+    <include file="$(find microstrain_inertial_driver)/launch/microstrain.launch">
+      <arg name="node_instance" value="2" />
+      <arg name="port" value="/dev/ttyIMU2" />
+      <arg name="aux_port" value="/dev/ttyIMU2" />
+      <arg name="baudrate" value="115200" />
+      <arg name="imu_frame_id" value="sensor2" />
+      <arg name="imu_data_rate" value="150" />
+      <arg name="filter_data_rate" value="0" />
+    </include>
+  </group>
+
+<!-- 3rd node -->
+  <group ns="sensor3">
+    <include file="$(find microstrain_inertial_driver)/launch/microstrain.launch">
+      <arg name="node_instance" value="3" />
+      <arg name="port" value="/dev/ttyIMU3" />
+      <arg name="aux_port" value="/dev/ttyIMU3" />
+      <arg name="baudrate" value="115200" />
+      <arg name="imu_frame_id" value="sensor3" />
+      <arg name="imu_data_rate" value="150" />
+      <arg name="filter_data_rate" value="0" />
+    </include>
+  </group>
+
+
+<node name="icr_cal_node"  pkg="FAC_MAV" type="icr_cal" output="screen"/>
+
+!-- Rosbag -->
+  <node pkg="rosbag" type="record" name="record" output="screen" args="-o /home/cad-uav1/catkin_ws/src/FAC_MAV/bag/ /imu123_data_array /imu_induced_lin_vel" />
+
+</launch>
+
